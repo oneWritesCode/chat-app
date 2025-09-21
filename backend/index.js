@@ -47,7 +47,6 @@ app.get("/api/users/me", async (req, res) => {
     }
     
     const token = authHeader.split(" ")[1];
-    // const jwt = await import("jsonwebtoken");
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     
     const user = await User.findById(payload.id).select("-password");
@@ -82,9 +81,9 @@ io.use(async (socket, next) => verifySocketToken(socket, next));
 
 // socket events
 io.on("connection", (socket) => {
-  const userId = socket.userId; // set in verifySocketToken
+  const userId = socket.userId;
   console.log(`User ${userId} connected`);
-  socket.join(userId); // join personal room
+  socket.join(userId); 
 
   // Update user online status
   User.findByIdAndUpdate(userId, { isOnline: true, lastSeen: new Date() })
@@ -93,7 +92,6 @@ io.on("connection", (socket) => {
   socket.on("private_message", async (payload) => {
     try {
       console.log("Received message:", payload);
-      // payload: { to, text, attachments }
       const { to, text, attachments } = payload;
       
       if (!to) {
@@ -133,7 +131,6 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log(`User ${userId} disconnected`);
-    // Update user offline status
     User.findByIdAndUpdate(userId, { isOnline: false, lastSeen: new Date() })
       .catch(err => console.error("Error updating user status:", err));
   });

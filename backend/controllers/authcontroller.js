@@ -1,4 +1,3 @@
-// controllers/authController.js
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -10,7 +9,6 @@ export const signup = async (req, res) => {
             return res.status(400).json({ msg: "Missing required fields" });
         }
 
-        // check unique
         if (await User.findOne({ email })) {
             return res.status(400).json({ msg: "Email already used" });
         }

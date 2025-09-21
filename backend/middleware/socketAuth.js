@@ -1,4 +1,3 @@
-// middlewares/socketAuth.js
 import jwt from "jsonwebtoken";
 export const verifySocketToken = (socket, next) => {
   try {

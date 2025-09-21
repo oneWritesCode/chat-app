@@ -1,4 +1,3 @@
-// models/User.js
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -18,9 +17,9 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     index: true,
   },
-  mobile: { type: String, unique: true, required: true, sparse: true }, // allow null but unique when present
-  password: { type: String }, // hashed; null for OAuth users
-  avatar: { type: String }, // profile picture URL
+  mobile: { type: String, unique: true, required: true, sparse: true }, 
+  password: { type: String }, 
+  avatar: { type: String },
   isOnline: { type: Boolean, default: false },
   lastSeen: { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now },

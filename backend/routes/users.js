@@ -1,4 +1,3 @@
-// routes/users.js
 import express from "express";
 import { updateProfile, deleteAccount } from "../controllers/authcontroller.js";
 import { auth } from "../middleware/auth.js";
