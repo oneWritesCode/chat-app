@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       if (token) {
         try {
-          const response = await axios.get('http://localhost:3000/api/users/me');
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/me`);
           setUser({
             id: response.data._id,
             name: response.data.name,
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (identifier, password) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         identifier,
         password
       });
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/signup', userData);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/signup`, userData);
       
       const { user: newUser, token: newToken } = response.data;
       setUser(newUser);
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('http://localhost:3000/api/auth/logout');
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/logout`);
     } catch (error) {
       console.error('Logout error:', error);
     } finally {

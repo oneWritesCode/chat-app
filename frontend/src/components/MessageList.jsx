@@ -62,7 +62,7 @@ const MessageList = ({ messages, currentUserId }) => {
                     <div key={index}>
                       {isImage(attachment.mimeType) && (
                         <img
-                          src={`http://localhost:3000${attachment.url}`}
+                          src={`${import.meta.env.VITE_API_URL}${attachment.url}`}
                           alt={attachment.filename}
                           className="max-w-full h-auto rounded-lg cursor-pointer"
                           onClick={() => window.open(`http://localhost:3000${attachment.url}`, '_blank')}
@@ -71,7 +71,7 @@ const MessageList = ({ messages, currentUserId }) => {
                       
                       {isVideo(attachment.mimeType) && (
                         <video
-                          src={`http://localhost:3000${attachment.url}`}
+                          src={`${import.meta.env.VITE_API_URL}${attachment.url}`}
                           controls
                           className="max-w-full h-auto rounded-lg"
                         >
@@ -81,7 +81,7 @@ const MessageList = ({ messages, currentUserId }) => {
                       
                       {!isImage(attachment.mimeType) && !isVideo(attachment.mimeType) && (
                         <a
-                          href={`http://localhost:3000${attachment.url}`}
+                          href={`${import.meta.env.VITE_API_URL}${attachment.url}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center space-x-2 p-2 bg-gray-600 rounded-lg hover:bg-gray-500 text-gray-50"

@@ -22,11 +22,11 @@ const MessageInput = ({ onSendMessage }) => {
 
     setUploading(true);
     const uploadPromises = files.map(async (file) => {
-      const formData = new FormData();
+      const formData = new FormData();  
       formData.append('file', file);
 
       try {
-        const response = await axios.post('http://localhost:3000/api/chat/upload', formData, {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/chat/upload`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -71,7 +71,7 @@ const MessageInput = ({ onSendMessage }) => {
   };
 
   return (
-    <div className="border-t border-gray-500 bg-gray-800 p-4">
+    <div className="p-2">
       {/* Attachments Preview */}
       {attachments.length > 0 && (
         <div className="mb-4 space-y-2">
@@ -80,7 +80,7 @@ const MessageInput = ({ onSendMessage }) => {
               {isImage(attachment.mimeType) && (
                 <div className="relative">
                   <img
-                    src={`http://localhost:3000${attachment.url}`}
+                    src={`${import.meta.env.VITE_API_URL}${attachment.url}`}
                     alt={attachment.filename}
                     className="w-20 h-20 object-cover rounded-lg"
                   />
@@ -96,7 +96,7 @@ const MessageInput = ({ onSendMessage }) => {
               {isVideo(attachment.mimeType) && (
                 <div className="relative">
                   <video
-                    src={`http://localhost:3000${attachment.url}`}
+                    src={`${import.meta.env.VITE_API_URL}${attachment.url}`}
                     className="w-20 h-20 object-cover rounded-lg"
                   />
                   <button
@@ -140,11 +140,11 @@ const MessageInput = ({ onSendMessage }) => {
           className="p-2 text-gray-300 hover:text-gray-100 disabled:opacity-50"
         >
           {uploading ? (
-            <svg className="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
           ) : (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
             </svg>
           )}
@@ -165,7 +165,7 @@ const MessageInput = ({ onSendMessage }) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type a message..."
-            className="w-full px-4 py-2 border border-gray-500 bg-gray-700 text-gray-50 placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="w-full px-4 py-2 bg-gray-700 text-gray-50 placeholder-gray-400 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500 resize-none"
             rows="1"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
@@ -180,9 +180,9 @@ const MessageInput = ({ onSendMessage }) => {
         <button
           type="submit"
           disabled={(!message.trim() && attachments.length === 0) || uploading}
-          className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="p-2 mb-2 rounded-lg bg-gray-500 text-white flex items-center justify-center hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
           </svg>
         </button>
